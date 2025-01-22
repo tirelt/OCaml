@@ -9,12 +9,12 @@ Getting started with OCaml following:
 
 Install opam if necessary with brew (`brew install opam`). Opam (OCaml Package Manager) will install Ocaml for us and manage the packages.
 
-Then init opam, to setup a minimal Opam environment, configure your environment automatically, and skips any interactive prompts
+Then init opam, to setup a minimal Opam environment, configure your environment automatically, and skips any interactive prompts:
 ```bash
 opam init --bare -a -y
 ```
-Otherwise you can do:
 
+Otherwise you can do:
 ```bash
 opam init
 ```
@@ -22,10 +22,12 @@ opam init
 Select `Option 5: No, I'll remember to run eval $(opam env) when I need opam`.
 
 
-Make sure to run `eval $(opam env)` to use Opam
+Make sure to run `eval $(opam env)` to use Opam.
 
+Then follow the below instructions to setup a switch, update, install packages etc :
 
 ```bash
+opam --version # to check the version
 opam update
 opam switch create <switch-name> <compiler-version> e.g. opam switch create main ocaml-base-compiler.5.2.1 # to creat a switch
 opam switch list
@@ -40,14 +42,23 @@ opam install utop # toplevel
 opam install dune #build system, similar to make
 ```
 
-To check the version
-```bash
-opam --version
-```
+## VSCode setup
 
+To enjoy autocomplete, fromatting and pre compilation checks in VSCode:
+- install [OCaml Platform](https://marketplace.visualstudio.com/items?itemName=ocamllabs.ocaml-platform) extension
+- install the lsp server package: `opan install ocaml-lsp-server `
+- `Cmd + shift + P > Open user Settings` and add the following 
+```json
+"[ocaml]": {
+  "editor.tabSize": 2,
+  "editor.rulers": [ 100 ],
+  "editor.defaultFormatter": "ocamllabs.ocaml-platform",
+  "editor.formatOnSave": true,
+},
+```
 ## Compile
 
-To compile a fine 
+To compile a file: 
 ```bash 
 ocamlc -o hello hello.ml 
 ```
@@ -62,7 +73,8 @@ ocamlc name.cmo main.ml -o main # can link several cmo at once
 
 ```bash
 dune init project dummy_project
-dune exec bin/main.exe # to run 
+dune build hello.exe # name muist match the main file 
+dune exec ./hello.exe # to run the porgram or directly: _build/default/hello.exe
 dune build --watch # to automatically recompile when modifier
 ```
 
